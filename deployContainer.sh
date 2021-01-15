@@ -14,6 +14,9 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
   -o | --options )
     shift; options=$1
     ;;
+  -a | --args )
+    shift; args=$1
+    ;;
   -s | --start )
     start=1
     ;;
@@ -47,8 +50,8 @@ echo "> Removing container $container"
 docker rm $container
 
 # Create a new container
-echo "> Creating container $container with options $options from image $imgprefix$image"
-docker create --name $container $options $imgprefix$image || exit 1
+echo "> Creating container $container with options $options from image $imgprefix$image" and command $args
+docker create --name $container $options $imgprefix$image $args || exit 1
 
 # Start the container
 if [[ $start == 1 ]]; then
