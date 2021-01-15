@@ -14,6 +14,9 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
   -o | --options )
     shift; options=$1
     ;;
+  -s | --start )
+    start=1
+    ;;
   --prune )
     prune=1
     ;;
@@ -48,8 +51,10 @@ echo "> Creating container $container with options $options from image $imgprefi
 docker create --name $container $options $imgprefix$image || exit 1
 
 # Start the container
-echo "> Starting $container"
-docker start $container || exit 1
+if [[ $start == 1 ]]; then
+    echo "> Starting $container"
+    docker start $container || exit 1
+fi
 
 if [[ $prune == 1 ]]; then
   echo "> Pruning stuff"
