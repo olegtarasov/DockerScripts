@@ -50,7 +50,7 @@ echo "> Removing container $container"
 docker rm $container
 
 # Create a new container
-echo "> Creating container $container with options $options from image $imgprefix$image" and command $args
+echo "> Creating container $container with options $options from image $imgprefix$image and command $args"
 docker create --name $container $options $imgprefix$image $args || exit 1
 
 # Start the container
